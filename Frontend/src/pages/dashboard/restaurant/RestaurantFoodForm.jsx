@@ -40,7 +40,7 @@ export default function RestaurantFoodForm({ restaurantId }) {
         data.append("longitude", position[1]);
       }
 
-      await axios.post("https://food-donation-platform-4.onrender.com/create", data);
+      await axios.post("http://localhost:5000/api/food/create", data);
       alert("Posted successfully!");
       setName("");
       setDescription("");

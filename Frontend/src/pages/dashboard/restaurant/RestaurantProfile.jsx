@@ -6,13 +6,12 @@ export default function RestaurantProfile({ restaurantId }) {
 
   useEffect(() => {
     if (!restaurantId) return;
-    axios
-      .get(`https://food-donation-platform-4.onrender.com/restaurant/${restaurantId}`)
+    axios.get(`http://localhost:5000/restaurant/${restaurantId}`)
       .then((res) => setProfile(res.data))
       .catch(() => {});
   }, [restaurantId]);
 
-  if (!profile)
+  if (!profile) 
     return (
       <div className="bg-[#fefff4] rounded-xl p-6 border border-[#2d3b36]/10">
         <p className="text-[#525349]" style={{ fontFamily: "system-ui, sans-serif" }}>

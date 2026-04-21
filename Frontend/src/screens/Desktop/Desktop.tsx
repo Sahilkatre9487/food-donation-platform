@@ -156,7 +156,7 @@ const navItems = [
         {/* Header/Navigation */}
         <header className="flex justify-between items-center px-4 md:px-8 lg:px-[100px] py-6 md:py-[49px] relative z-40">
           <div className="font-extrabold text-[#2d3b36] text-2xl md:text-3xl [font-family:'Inter',Helvetica] tracking-[0] leading-[normal]">
-            ECOMEAL
+            ZEROhunger
           </div>
 
           {/* Desktop Navigation */}
@@ -212,7 +212,7 @@ const navItems = [
           <div className="fixed inset-0 bg-[#eff5e1] z-50 md:hidden">
             <div className="flex justify-between items-center px-4 py-6">
               <div className="font-extrabold text-[#2d3b36] text-2xl [font-family:'Inter',Helvetica]">
-                ECOMEAL
+                ZEROhunger
               </div>
               <Button
                 variant="ghost"
@@ -297,7 +297,7 @@ Together, we fight food waste and feed communities, one meal at a time.
         {/* Large SKINCARE text with image */}
         <section className="relative mt-16 md:mt-[100px] h-[400px] md:h-[685px] overflow-hidden">
           <div className="absolute top-[200px] md:top-[410px] left-0 font-extrabold text-[#2d3b36] text-[120px] md:text-[200px] lg:text-[378px] [font-family:'Inter',Helvetica] tracking-[0] leading-[normal] whitespace-nowrap opacity-20 md:opacity-100">
-            ECOMEAL
+            ZEROhunger
           </div>
 
           <img
@@ -527,7 +527,7 @@ Together, we fight food waste and feed communities, one meal at a time.
         Get in Touch
       </h3>
       <p className="[font-family:'Inter',Helvetica] font-normal text-2xl md:text-4xl lg:text-6xl tracking-[-1.20px] leading-[normal] hover:text-[#eff5e1]/80 transition-colors cursor-pointer">
-        support@ecomeal.org
+        support@zerohunger.org
       </p>
     </div>
   </div>
@@ -558,7 +558,7 @@ Together, we fight food waste and feed communities, one meal at a time.
   </div>
 
   <div className="absolute bottom-0 left-0 font-bold text-[#3d4b4680] text-[120px] md:text-[250px] lg:text-[420px] [font-family:'Inter',Helvetica] tracking-[0] leading-[normal] whitespace-nowrap pointer-events-none">
-    ECOMEAL
+    ZEROhunger
   </div>
 </footer>
 

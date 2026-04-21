@@ -12,7 +12,7 @@ export default function LoginPage(){
   const submit = async (e) => {
     e.preventDefault();
     try{
-      const res = await axios.post("https://food-donation-platform-4.onrender.com/login", { email, password, role });
+      const res = await axios.post("http://localhost:5000/api/auth/login", { email, password, role });
       const { token, user } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("userId", user.id);

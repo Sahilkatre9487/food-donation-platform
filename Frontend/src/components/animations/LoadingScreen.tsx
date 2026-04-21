@@ -23,7 +23,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     <div className="fixed inset-0 bg-[#eff5e1] z-50 flex items-center justify-center">
       <div className="text-center">
         <div className="font-extrabold text-[#2d3b36] text-4xl md:text-6xl [font-family:'Inter',Helvetica] mb-8 animate-pulse">
-          ECOMEAL
+          ZEROhunger
         </div>
         <div className="w-80 h-1 bg-[#2d3b3620] rounded-full overflow-hidden">
           <div 

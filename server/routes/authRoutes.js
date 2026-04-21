@@ -84,11 +84,13 @@ router.post("/register/volunteer", upload.fields([{ name: "registrationDoc", max
   }
 });
 
-// login (both types)
 router.post("/login", async (req, res) => {
   try {
-    const { email, password, role } = req.body; // role: 'restaurant' or 'volunteer'
-    if (!email || !password || !role) return res.status(400).json({ message: "Missing fields" });
+    const { email, password, role } = req.body;
+
+    if (!email || !password || !role) {
+      return res.status(400).json({ message: "Missing fields" });
+    }
 
     let user;
     if (role === "restaurant") user = await Restaurant.findOne({ email });
@@ -99,9 +101,14 @@ router.post("/login", async (req, res) => {
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) return res.status(400).json({ message: "Invalid credentials" });
 
-    const token = jwt.sign({ id: user._id, role }, process.env.JWT_SECRET || "secret", { expiresIn: "7d" });
+    const token = jwt.sign(
+      { id: user._id, role },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
 
     res.json({
+      success: true,
       message: "Logged in",
       token,
       user: {
@@ -112,6 +119,7 @@ router.post("/login", async (req, res) => {
         imagePath: role === "restaurant" ? user.imagePath : user.logoPath
       }
     });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });

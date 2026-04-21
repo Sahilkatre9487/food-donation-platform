@@ -17,7 +17,7 @@ export default function VolunteerMap() {
   useEffect(() => {
     const fetchFoods = async () => {
       try {
-        const res = await axios.get("https://food-donation-platform-4.onrender.com/food/all");
+        const res = await axios.get("http://localhost:5000/api/food/all");
         setFoodPosts(res.data);
       } catch (err) {
         console.error("Error fetching foods:", err);
@@ -53,15 +53,15 @@ export default function VolunteerMap() {
               <Popup>
                 <div className="text-center">
                   <img
-                    src={`http://localhost:5000${food.imagePath}`}
+                    src={`https://food-donation-platform-4.onrender.com${food.imagePath}`}
                     alt="food"
                     className="w-25 rounded-lg mb-2 mx-auto"
                   />
                   <h3 className="text-lg font-bold text-[#2d3b36] mb-2" style={{ fontFamily: 'Georgia, serif' }}>
-                    {food.foodName}
+                    {food.name}
                   </h3>
                   <p className="text-[#525349] mb-1 text-sm" style={{ fontFamily: 'system-ui, sans-serif' }}>
-                    🍴 <strong className="text-[#2d3b36]">Type:</strong> {food.foodType}
+                    🍴 <strong className="text-[#2d3b36]">Type:</strong> {food.description}
                   </p>
                   <p className="text-[#525349] mb-1 text-sm" style={{ fontFamily: 'system-ui, sans-serif' }}>
                     🏠 <strong className="text-[#2d3b36]">Restaurant:</strong> {food.restaurantName}

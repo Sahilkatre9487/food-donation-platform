@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Plus } from "lucide-react"; // ✅ make sure you have lucide-react installed: npm install lucide-react
+import { Plus } from "lucide-react"; 
+import { useNavigate } from "react-router-dom";// ✅ make sure you have lucide-react installed: npm install lucide-react
 
 export default function RestaurantMyPosts({ restaurantId }) {
   const [posts, setPosts] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
-    if (!restaurantId) return;
-    axios
-      .get(`https://food-donation-platform-4.onrender.com/restaurant/${restaurantId}`)
-      .then((res) => setPosts(res.data))
-      .catch((err) => console.error(err));
-  }, [restaurantId]);
+  if (!restaurantId) return;
+
+  axios
+    .get(`http://localhost:5000/api/food/restaurant/${restaurantId}`)
+    .then((res) => setPosts(res.data))
+    .catch((err) => console.error(err));
+
+}, [restaurantId]);
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -35,7 +38,7 @@ export default function RestaurantMyPosts({ restaurantId }) {
 
           <button
             className="flex items-center gap-2 bg-[#2d3b36] text-[#fefff4] px-6 py-3 rounded-xl hover:bg-[#2d3b36]/90 transition-all duration-200 shadow-md hover:shadow-lg font-bold text-lg"
-            onClick={() => alert("Add new post functionality coming soon!")}
+            onClick={() => navigate("/dashboard/restaurant/create")}
           >
             <Plus size={24} />
             New Post
@@ -57,7 +60,7 @@ export default function RestaurantMyPosts({ restaurantId }) {
             >
               {p.imagePath && (
                 <img
-                  src={`http://localhost:5000${p.imagePath}`}
+                 src={`http://localhost:5000${p.imagePath}`}
                   alt=""
                   className="w-full h-48 object-cover"
                 />

@@ -25,7 +25,7 @@ export default function VolunteerSignup(){
       data.append("longitude", coords.lng);
       if(regDoc) data.append("registrationDoc", regDoc);
       if(logo) data.append("logo", logo);
-      await axios.post("https://food-donation-platform-4.onrender.com/volunteer", data);
+      await axios.post("http://localhost:5000/api/auth/register/volunteer", data);
       alert("Registered. Login now.");
       navigate("/");
     }catch(err){

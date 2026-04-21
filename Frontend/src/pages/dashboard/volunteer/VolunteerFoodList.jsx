@@ -5,8 +5,7 @@ export default function VolunteerFoodList({ volunteerId }) {
   const [foods, setFoods] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://food-donation-platform-4.onrender.com/food/all")
+    axios.get("http://localhost:5000/api/food/all")
       .then((res) => setFoods(res.data))
       .catch(() => {});
   }, []);
@@ -14,7 +13,7 @@ export default function VolunteerFoodList({ volunteerId }) {
   const accept = async (id) => {
     try {
     await axios.post(
-  `https://food-donation-platform-4.onrender.com/food/accept/${id}`,
+  `http://localhost:5000/api/food/accept/${id}`,
   { volunteerId }
 );
 
@@ -55,7 +54,7 @@ export default function VolunteerFoodList({ volunteerId }) {
           </p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {foods.map((f) => (
+            {Array.isArray(foods) && foods.map((f) => (
               <div
                 key={f._id}
                 className="bg-[#fefff4] rounded-2xl overflow-hidden border border-[#2d3b36]/10 hover:shadow-lg transition-shadow"

@@ -1,9 +1,33 @@
-# Frontend
-Frontend/node_modules
-Frontend/dist
+# Dependencies
+node_modules/
+Frontend/node_modules/
+server/node_modules/
 
-# Root build
-dist
+# Build files
+dist/
+Frontend/dist/
+server/dist/
 
-# Env
+# Environment variables
 .env
+Frontend/.env
+server/.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# # Frontend
+# Frontend/node_modules
+# Frontend/dist
+
+# # Root build
+# dist
+
+# # Env
+# .env

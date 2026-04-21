@@ -22,7 +22,7 @@ export default function RestaurantSignup(){
       data.append("latitude", coords.lat);
       data.append("longitude", coords.lng);
       if(image) data.append("image", image);
-      const res = await axios.post("https://food-donation-platform-4.onrender.com/restaurant", data);
+      const res = await axios.post("http://localhost:5000/api/auth/register/restaurant", data);
       alert("Registered. Login now.");
       navigate("/");
     }catch(err){
@@ -315,7 +315,7 @@ export default function RestaurantSignup(){
               </button>
               <button
                 type="button"
-                onClick={() => handleNavigate("/")}
+                onClick={() => navigate("/")}
                 className="px-6 py-3 rounded-lg font-medium transition-all duration-200 transform hover:scale-105 active:scale-95"
                 style={{
                   backgroundColor: '#f8fee5',
