@@ -94,14 +94,50 @@ export default function RestaurantMyPosts({ restaurantId }) {
                     </span>
                   </p>
                   {p.status === "Accepted" && (
-                    <p className="text-[#2d3b36] bg-[#f8fee5] px-3 py-2 rounded-md mt-3 flex items-center gap-2 font-semibold text-lg">
-                      <span>✅</span>
-                      <span>
-                        Accepted by{" "}
-                        <span className="font-bold">{p.acceptedByName}</span>
-                      </span>
-                    </p>
-                  )}
+  <p className="text-[#2d3b36] bg-[#f8fee5] px-3 py-2 rounded-md mt-3 flex items-center gap-2 font-semibold text-lg">
+    <span>✅</span>
+    <span>
+      Accepted by{" "}
+      <span className="font-bold">{p.acceptedByName}</span>
+    </span>
+  </p>
+)}
+
+{p.status === "Distributed" && (
+  <div className="mt-4 bg-[#eff5e1] p-4 rounded-xl">
+
+    <p className="font-bold text-[#2d3b36] mb-3 text-lg">
+      ✅ Food Successfully Distributed
+    </p>
+
+    {p.proofImage && (
+      <img
+        src={`http://localhost:5000${p.proofImage}`}
+        alt="Distribution Proof"
+        className="w-full h-52 object-cover rounded-lg mb-3"
+      />
+    )}
+
+    <p className="text-[#525349] font-semibold">
+      <span className="text-[#2d3b36] font-bold">
+        Distributed By:
+      </span>{" "}
+      {p.acceptedByName}
+    </p>
+
+    <p className="text-[#525349] mt-2">
+      <span className="font-bold text-[#2d3b36]">
+        Message:
+      </span>{" "}
+      {p.distributionMessage}
+    </p>
+
+    <p className="text-sm text-[#525349] mt-2">
+      {new Date(p.distributedAt).toLocaleString()}
+    </p>
+
+  </div>
+)}
                 </div>
               </div>
             </div>

@@ -126,4 +126,59 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// get restaurant by id
+router.get("/restaurant/:id", async (req, res) => {
+
+  try {
+
+    const restaurant = await Restaurant.findById(req.params.id);
+
+    if (!restaurant) {
+      return res.status(404).json({
+        message: "Restaurant not found"
+      });
+    }
+
+    res.json(restaurant);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+      message: "Server error"
+    });
+
+  }
+
+});
+
+
+// get volunteer by id
+router.get("/volunteer/:id", async (req, res) => {
+
+  try {
+
+    const volunteer = await Volunteer.findById(req.params.id);
+
+    if (!volunteer) {
+      return res.status(404).json({
+        message: "Volunteer not found"
+      });
+    }
+
+    res.json(volunteer);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+      message: "Server error"
+    });
+
+  }
+
+});
+
 export default router;

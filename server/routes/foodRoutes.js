@@ -7,6 +7,7 @@ import fs from "fs";
 import Food from "../models/Food.js";
 import Restaurant from "../models/Restaurant.js";
 import Volunteer from "../models/Volunteer.js";
+import sendEmail from "../utils/sendEmail.js";
 
 const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
@@ -44,7 +45,44 @@ router.post("/create", upload.single("image"), async (req, res) => {
       status: "Pending"
     });
     await food.save();
-    res.json({ message: "Food created", food });
+
+// extract city from address
+const city = food.location.address
+  .split(",")[0]
+  .trim()
+  .toLowerCase();
+
+// get all volunteers
+const volunteers = await Volunteer.find();
+
+// filter same city volunteers
+const matchedVolunteers = volunteers.filter(v =>
+  v.location?.address?.toLowerCase().includes(city)
+);
+
+// send emails
+for (const volunteer of matchedVolunteers) {
+
+  console.log("Email sent to:", volunteer.email);
+
+  await sendEmail(
+    volunteer.email,
+    "New Food Donation Available",
+
+    `New food donation available in ${city}
+
+Food Name: ${food.name}
+Quantity: ${food.quantity}
+Restaurant: ${food.restaurantName}
+
+Please login to accept the request.`
+  );
+}
+
+res.json({
+  message: "Food created and emails sent",
+  food
+});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
@@ -96,6 +134,124 @@ router.get("/restaurant/:id", async (req, res) => {
     console.error(err);
     res.status(500).json({ message: "Server error" });
   }
+});
+// upload distribution proof
+router.post(
+  "/upload-proof/:id",
+  upload.single("image"),
+  async (req, res) => {
+
+    try {
+
+      const food = await Food.findById(req.params.id);
+
+      if (!food) {
+
+        return res.status(404).json({
+          message: "Food not found"
+        });
+
+      }
+
+      food.status = "Distributed";
+
+      food.proofImage = req.file
+        ? `/uploads/${req.file.filename}`
+        : "";
+
+      food.distributionMessage =
+        req.body.message || "Food distributed successfully";
+
+      food.distributedAt = new Date();
+
+      await food.save();
+
+      res.json({
+        message: "Proof uploaded successfully",
+        food
+      });
+
+    } catch (err) {
+
+      console.error(err);
+
+      res.status(500).json({
+        message: "Server error"
+      });
+
+    }
+
+  }
+);
+
+router.post(
+  "/upload-proof/:id",
+  upload.single("image"),
+  async (req, res) => {
+
+    try {
+
+      const food = await Food.findById(req.params.id);
+
+      if (!food) {
+        return res.status(404).json({
+          message: "Food not found",
+        });
+      }
+
+      food.proofImage = req.file
+        ? `/uploads/${req.file.filename}`
+        : "";
+
+      food.distributionMessage =
+        req.body.message || "";
+
+      food.distributedAt = new Date();
+
+      food.status = "Distributed";
+
+      await food.save();
+
+      res.json({
+        message: "Proof uploaded",
+        food,
+      });
+
+    } catch (err) {
+
+      console.log(err);
+
+      res.status(500).json({
+        message: "Server error",
+      });
+
+    }
+
+  }
+);
+
+// volunteer distributed history
+router.get("/volunteer-history/:id", async (req, res) => {
+
+  try {
+
+    const foods = await Food.find({
+      acceptedBy: req.params.id,
+      status: "Distributed"
+    }).sort({ distributedAt: -1 });
+
+    res.json(foods);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+      message: "Server error"
+    });
+
+  }
+
 });
 
 export default router;
